@@ -1,4 +1,4 @@
-package org.baeldung.config;
+package org.netosoft.edu.oauth.server.config;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 

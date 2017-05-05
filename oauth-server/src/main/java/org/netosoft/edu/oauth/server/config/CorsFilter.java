@@ -1,4 +1,4 @@
-package org.baeldung.config;
+package org.netosoft.edu.oauth.server.config;
 
 import java.io.IOException;
 

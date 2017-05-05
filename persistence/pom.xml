@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>edu.netosoft</groupId>
+		<artifactId>oauth-sandbox</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>persistence</artifactId>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<apache.commons.version>1.9</apache.commons.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<hibernate.c3p0.version>3.3.2.GA</hibernate.c3p0.version>
+		<h2.version>1.3.160</h2.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Spring 3 dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<!--<version>${spring.version}</version>-->
+		</dependency>
+		
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- Testing -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>1.1.5</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Testing -->
+		<!-- Logging -->
+		
+		<!-- JDBC Driver -->
+		<dependency>
+			<groupId>org.postgresql</groupId> 
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<!--<version>${hibernate.version}</version>--> 
+		</dependency>
+		<!-- pooling for hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.c3p0.version}</version>
+		</dependency>
+				
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Testing -->
+		
+	</dependencies>
+
+	<build>
+		<finalName>persistence</finalName>
+		
+		<filters>
+			<filter>${project.basedir}/../config/persistence/${build.profile.id}/config.properties</filter>
+		</filters>
+		
+		<testResources>
+			<testResource>
+				<filtering>true</filtering>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+		
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<!-- Local Developing -->
+		<profile>
+			<id>loc</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>loc</build.profile.id>
+			</properties>
+		</profile>
+		
+		<!-- CI -->
+		<profile>
+			<id>ci</id>
+			<properties>
+				<build.profile.id>ci</build.profile.id>
+			</properties>
+		</profile>
+	</profiles>
+	
+</project>

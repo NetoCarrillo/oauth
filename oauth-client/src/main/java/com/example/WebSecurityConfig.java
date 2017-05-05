@@ -107,7 +107,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
 			.addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 	}
-	
+
 	private Filter ssoFilter(){
 		
 		List<Filter> filters = new ArrayList<>();

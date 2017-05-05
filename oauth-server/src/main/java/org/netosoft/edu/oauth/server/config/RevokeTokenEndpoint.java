@@ -1,4 +1,4 @@
-package org.baeldung.config;
+package org.netosoft.edu.oauth.server.config;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

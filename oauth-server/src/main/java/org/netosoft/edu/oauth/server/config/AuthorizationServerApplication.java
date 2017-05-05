@@ -1,4 +1,4 @@
-package org.baeldung.config;
+package org.netosoft.edu.oauth.server.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
