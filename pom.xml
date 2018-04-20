@@ -8,33 +8,25 @@
 	<name>Collection of projects to experiment with OAuth protocol</name>
 	<packaging>pom</packaging>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>Internal Releases</name>
-			<url>http://projects.anzen.com.mx:8080/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Internal Releases</name>
-			<url>http://projects.anzen.com.mx:8080/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-	
 	<modules>
 		<module>oauth-server</module>
 		<module>oauth-client</module>
 		<module>simple-client</module>
 		<module>persistence</module>
+		<module>monolite</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<java.version>1.7</java.version>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
-		<!--<springboot.version>1.2.4.RELEASE</springboot.version>-->
-		<springboot.version>1.5.2.RELEASE</springboot.version>
+		<springboot.version>1.5.12.RELEASE</springboot.version>
 		<cxf.version>2.7.11</cxf.version>
 	</properties>
 
@@ -50,31 +42,30 @@
 				<scope>import</scope>
 			</dependency>
 			<!-- Dependency management -->
-			
-			<!-- Logging -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<!-- Logging -->
-			
-			<!-- Testing -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-test</artifactId>
-				<version>${springboot.version}</version>
-			</dependency>
-			<!-- Testing -->
 		</dependencies>
 	</dependencyManagement>
+	
+	<dependencies>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<!-- Logging -->
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<!-- Testing -->
+	</dependencies>
  
-	<build>
+<!--	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -86,5 +77,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 </project>
