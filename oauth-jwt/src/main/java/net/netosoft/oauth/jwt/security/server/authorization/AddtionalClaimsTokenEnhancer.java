@@ -23,6 +23,7 @@ public class AddtionalClaimsTokenEnhancer implements TokenEnhancer{
 		
 		Map<String, Object> addtional = new HashMap<>();
 		addtional.put("email", user.getEmail());
+		addtional.put("vendor", "this token was proudly made by NetOSoft");
 		
 		DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken)accessToken;
 		token.setAdditionalInformation(addtional);

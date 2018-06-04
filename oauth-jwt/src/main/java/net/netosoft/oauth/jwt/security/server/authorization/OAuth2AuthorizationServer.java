@@ -1,5 +1,9 @@
 package net.netosoft.oauth.jwt.security.server.authorization;
 
+import java.security.GeneralSecurityException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -52,16 +57,30 @@ public class OAuth2AuthorizationServer
 				.scopes("read_profile")
 				.authorizedGrantTypes("password", "authorization_code");
 	}
+
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security)
+					throws Exception{
+		security.tokenKeyAccess("permitAll()");
+	}
 	
 	@Bean
-	public JwtAccessTokenConverter accessTokenConverter(){
+	public JwtAccessTokenConverter accessTokenConverter()
+					throws GeneralSecurityException{
+		
+		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+		keyGen.initialize(1024, random);
+		KeyPair keyPair = keyGen.generateKeyPair();
+		
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey("non-prod-signature");
+		converter.setKeyPair(keyPair);
+		
 		return converter;
 	}
 	
 	@Bean
-	public JwtTokenStore jwtTokenStore(){
+	public JwtTokenStore jwtTokenStore() throws GeneralSecurityException{
 		return new JwtTokenStore(accessTokenConverter());
 	}
 }
